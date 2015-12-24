@@ -21,7 +21,7 @@ public class WechatProcess {
 	}
 	public String appId = "wxccbe28052cc00d34";
 	public String AppSecret = "d8ffc6bdb67ec81f0ef6381985d28ab9";
-    public String processWechatMag(String xml){  
+    public String processWechatMag(String xml) throws Exception{  
         /** 解析xml数据 */  
         ReceiveXmlEntity xmlEntity = new ReceiveXmlProcess().getMsgEntity(xml);  
           
@@ -30,7 +30,7 @@ public class WechatProcess {
         if("image".endsWith(xmlEntity.getMsgType())){
         	String url = xmlEntity.getPicUrl();
         	String id = solve(url);
-        	String acc = (new Access_token()).getnum(appId, AppSecret);
+        	String acc = (new Access_token()).getToken(appId, AppSecret);
         	result = ( new PictureXmlProcess()).picXmlAnswer(xmlEntity.getFromUserName(), xmlEntity.getToUserName(), id);
         }else{
             result = "你好，我只能识别带有yyx的图片";      
